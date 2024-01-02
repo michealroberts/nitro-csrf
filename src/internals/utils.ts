@@ -38,3 +38,20 @@ export const createExportKey = async (params?: {
 
 /*****************************************************************************************************************/
 
+/**
+ *
+ * extractImportKey
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/importKey
+ *
+ */
+export const extractImportKey = (params: {
+  key: JsonWebKey
+  encryptAlgorithm?: AesKeyAlgorithm
+}): Promise<CryptoKey> => {
+  const { key, encryptAlgorithm = defaultEncryptAlgorithm } = params
+  // Provide the key in extractable, JWK format:
+  return subtle.importKey('jwk', key, encryptAlgorithm, true, ['encrypt', 'decrypt'])
+}
+
+/*****************************************************************************************************************/
