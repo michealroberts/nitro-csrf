@@ -1,7 +1,7 @@
 /*****************************************************************************************************************/
 
 // @author         Michael Roberts <michael@observerly.com>
-// @package        @observerly/typescript-vite-template
+// @package        @observerly/nitro-csrf
 // @license        Copyright © 2021-2023 observerly
 
 /*****************************************************************************************************************/

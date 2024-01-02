@@ -1,29 +1,34 @@
 {
-  "name": "@observerly/typescript-vite-template",
+  "name": "nitro-csrf",
   "version": "0.0.0",
-  "description": "observerly's Typescript + Vite Monorepo starter template",
+  "description": "observerly's CSRF utilities and event handler for the Nitro web server",
+  "private": false,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/observerly/typescript-vite-template.git"
+    "url": "git+https://github.com/michealroberts/nitro-csrf.git"
   },
   "author": "Micheal J. Roberts",
   "prepublish": "tsc",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/observerly"
+    "registry": "https://registry.npmjs.org/"
   },
-  "type": "module",
+  "keywords": [
+    "nitro",
+    "csrf"
+  ],
+  "license": "MIT",
   "files": [
     "dist"
   ],
-  "main": "./dist/typescript-vite-template.umd.cjs",
-  "module": "./dist/typescript-vite-template.js",
+  "main": "./dist/nitro-csrf.umd.js",
+  "module": "./dist/nitro-csrf.es.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/typescript-vite-template.js",
-      "require": "./dist/typescript-vite-template.umd.cjs"
+      "import": "./dist/nitro-csrf.es.js",
+      "require": "./dist/nitro-csrf.umd.js"
     }
   },
-  "types": "./dist/index.d.ts",
   "release": {
     "branches": [
       "main"
@@ -35,6 +40,13 @@
     "lint": "eslint src --ext .ts --fix",
     "test": "vitest"
   },
+  "dependencies": {
+    "ufo": "^1.1.2",
+    "uncrypto": "^0.1.3"
+  },
+  "peerDependencies": {
+    "h3": "^1.8.0"
+  },
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
     "@rollup/plugin-typescript": "^11.1.0",
@@ -43,6 +55,7 @@
     "eslint": "^8.47.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
+    "h3": "^1.8.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "path": "^0.12.7",

@@ -38,11 +38,9 @@ export default defineConfig({
   build: {
     outDir: './dist',
     lib: {
-      // Could also be a dictionary or array of multiple entry points
       entry: resolve(__dirname, 'src/index.ts'),
-      name: '@observerly/typescript-vite-template',
-      // the proper extensions will be added
-      fileName: 'typescript-vite-template'
+      name: '@observerly/nitro-csrf',
+      fileName: format => `nitro-csrf.${format}.js`
     },
     rollupOptions: {
       external: ['./playground/*.ts'],
