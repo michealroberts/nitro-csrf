@@ -11,7 +11,7 @@ import { subtle } from 'uncrypto'
 /*****************************************************************************************************************/
 
 // https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#aes-cbc
-const defaultEncryptAlgorithm = {
+export const defaultEncryptAlgorithm = {
   name: 'AES-CBC',
   length: 256
 } as const satisfies AesKeyAlgorithm
