@@ -55,3 +55,23 @@ export const extractImportKey = (params: {
 }
 
 /*****************************************************************************************************************/
+
+/**
+ *
+ * getExportKeyFromRaw
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/importKey
+ *
+ */
+export const getExportKeyFromRaw = async (params: {
+  key: string
+  encryptAlgorithm?: AesKeyAlgorithm
+}): Promise<CryptoKey> => {
+  const { key, encryptAlgorithm = defaultEncryptAlgorithm } = params
+  // Convert the key to a Buffer:
+  const rawKey = Buffer.from(key, 'base64')
+  // Provide the key in extractable, JWK format:
+  return await subtle.importKey('raw', rawKey, encryptAlgorithm, true, ['encrypt', 'decrypt'])
+}
+
+/*****************************************************************************************************************/
