@@ -6,9 +6,11 @@
 
 /*****************************************************************************************************************/
 
+import { subtle } from 'uncrypto'
+
 import { describe, expect, it, suite } from 'vitest'
 
-import { createExportKey } from '../src/internals/utils'
+import { createExportKey, defaultEncryptAlgorithm } from '../src/internals/utils'
 
 import { createToken, verifyToken } from '../src/internals/token'
 
@@ -27,6 +29,13 @@ suite('nitro-cors Internal Utils', () => {
     it('should verify a valid CSRF token', async () => {
       const jwt = await createExportKey()
 
+      const rawKey = Buffer.from(jwt.k, 'base64')
+
+      const ck = await subtle.importKey('raw', rawKey, defaultEncryptAlgorithm, true, [
+        'encrypt',
+        'decrypt'
+      ])
+
       const token = await createToken({
         secret: SECRET,
         jwk: jwt
@@ -34,7 +43,7 @@ suite('nitro-cors Internal Utils', () => {
 
       const isValid = await verifyToken({
         secret: SECRET,
-        jwk: jwt,
+        ck,
         token
       })
 
@@ -44,7 +53,7 @@ suite('nitro-cors Internal Utils', () => {
     it('should not verify an invalid CSRF token', async () => {
       const isValid = await verifyToken({
         secret: SECRET,
-        jwk: {},
+        ck: null,
         token: '==::=='
       })
 
