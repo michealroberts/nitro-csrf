@@ -56,10 +56,10 @@ export const createToken = async (params: { secret: string; jwk: JsonWebKey }): 
  */
 export const verifyToken = async (params: {
   secret: string
-  jwk: JsonWebKey
+  ck: CryptoKey
   token: string
 }): Promise<boolean> => {
-  const { secret, token, jwk } = params
+  const { secret, token, ck } = params
 
   // Split the token into the IV and encrypted secret values:
   const [iv, encrypted] = token.split('::')
@@ -69,19 +69,7 @@ export const verifyToken = async (params: {
     return false
   }
 
-  let ck: CryptoKey | undefined
-
   let decrypted: string | undefined
-
-  // Create the AES-CBC import key:
-  try {
-    ck = await extractImportKey({
-      key: jwk,
-      encryptAlgorithm: defaultEncryptAlgorithm
-    })
-  } catch {
-    return false
-  }
 
   try {
     // Decrypt the secret using the AES-CBC algorithm:
