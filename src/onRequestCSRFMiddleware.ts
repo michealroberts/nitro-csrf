@@ -6,12 +6,20 @@
 
 /*****************************************************************************************************************/
 
-import { type Handler } from '../shared/handler'
+import { defineRequestMiddleware } from 'h3'
 
-import { csrfHandlers } from './csrf'
+import { useCSRF } from './useCsrf'
+
+import { type H3CsrfOptions } from './types'
 
 /*****************************************************************************************************************/
 
-export const handlers: Handler[] = [...csrfHandlers]
+export const onRequestCSRFMiddleware = (options: H3CsrfOptions) =>
+  defineRequestMiddleware(async event => useCSRF(event, options))
+
+/*****************************************************************************************************************/
+
+// Expose the onRequestCsrfMiddleware as csrf alias for ease of use:
+export const csrf = onRequestCSRFMiddleware
 
 /*****************************************************************************************************************/

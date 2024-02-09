@@ -6,8 +6,8 @@
 
 /*****************************************************************************************************************/
 
-export { useCSRF } from './useCsrf'
-
-export { defineCSRFEventHandler } from './defineCSRFEventHandler'
+export interface H3CsrfOptions {
+  secret: string
+}
 
 /*****************************************************************************************************************/
